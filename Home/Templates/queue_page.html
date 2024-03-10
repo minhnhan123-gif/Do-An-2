@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    {% load static %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.3.2-dist' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main-queue.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'img' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&family=Raleway:wght@600&family=Work+Sans:wght@100;200;300;400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+    <title>Document</title>
+  </head>
+<body>
+  <div class="header">
+    <div class="container-xxl"> 
+      <div class="row">
+        <div class="form-page col-xxl-">
+          <div class="header__logo">
+            <div class="header__logo-text">
+              <div><a href="" style="color: var(--primary-color); font-size: 24px; font-family: 'Raleway'; font-weight: 600; word-wrap: break-word; text-decoration: none;">e-</a>
+                <a href="{%url 'home'%}" style="color: var(--primary-color); font-size: 24px; font-family: 'Raleway'; font-weight: 600; word-wrap: break-word; text-decoration: none;">Care</a></div>
+            </div>
+            <div class="header__logo-icon">
+                <img src="{% static 'img/Rectangle 85.png' %}" alt="" style="width: 40px; height: 40px;" class="header__logo-icon-img">
+
+            </div>
+          </div>
+          <div class="header__navbar caption">
+            <span class="header__navbar-intro select__object">
+              <a  href="{%url 'home'%}" class="header__navbar-intro">GIỚI THIỆU</a>
+            </span>
+            <span id="serviceDropdown" href='' class="header__navbar-infor select__object nav-item dropdown">
+              <a href="#" class="header__navbar-infor nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">DANH SÁCH HÀNG CHỜ</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" data-service='Khám sức khỏe tổng quát'>Khám sức khỏe tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Tầm soát ung thư'>Tầm soát ung thư </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Nội tổng quát'>Nội tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Ngoại tổng quát'>Ngoại tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Khoa sản'>Khoa sản</a></li>
+                <li><a class="dropdown-item" href="#" data-service='Nhi khoa'>Nhi khoa </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Cơ xương khớp'>Cơ xương khớp </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Tai mũi họng'>Tai mũi họng </a></li>
+              </ul>
+            </span>
+            <span class="header__navbar-contact select__object">
+              <a href="{%url 'form'%}" class="header__navbar-contact">THÔNG TIN BỆNH NHÂN </a>
+            </span>
+            <span class="header__navbar-service select__object">
+              <a href="{%url 'logout'%}" class="header__navbar-service">Đăng xuất</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="queue-body">
+    <div class="container" >
+      <div class="queue-center" >
+        <div class="body-header">
+          <span class="body__header-text">
+            Danh sách bệnh nhân - {{service}}
+          </span>
+        </div>
+        {% csrf_token %}
+        <table class="body-table">
+            <thead class="body-table__head">
+              <tr>
+                <th class="body-table__stt body-table__items  col-1">STT</th>
+                <th class="body-table__name body-table__items col-2">Họ và tên</th>
+                <th class="body-table__service body-table__items col-2">Bác sĩ</th>
+                <th class="body-table__doctor body-table__items col-2">Dịch vụ</th>
+                <th class="body-table__time body-table__items col-2">Thời gian đăng ký</th>
+                <th class="body-table__wait-time body-table__items col-2">Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody id = "patientTablebody" class="body-table__body" action="" method = "POST">
+              {% if queue_data %}
+                {% for patient in queue_data %}
+                <tr class="body-table__list" id = "body-table__list">
+                  {% if patient.service == service %}
+                  <th scope="row" class="body-table__body-items" style="margin: auto;">{{patient.queue_number}}</th>
+                  <th class="body-table__body-items">{{patient.patient}}</th>
+                  <th class="body-table__body-items">{{patient.doctor}}</th>
+                  <th class="body-table__body-items">{{patient.service}}</th>
+                  <th class="body-table__body-items">{{patient.formatted_registration_time}}</th>
+                  <th class="body-table__body-items"></th>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="5"></td>
+                </tr>
+              {% endif %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/date-fns@2.23.0/esm/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/date-fns@2.23.0/esm/index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/t1f1f7e6qBk9zue2u6w4njpL40l/5oHpFItj8=" crossorigin="anonymous"></script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Đảm bảo DOM đã được tải xong
+  
+      // Lấy tất cả các phần tử tr với class "body-table__list"
+      var rows = document.querySelectorAll('.body-table__list');
+  
+      // Kiểm tra từng dòng và xóa nếu không có dịch vụ
+      rows.forEach(function (row) {
+        var serviceCell = row.querySelector('.body-table__body-items:nth-child(3)'); // Lấy ô chứa dịch vụ
+  
+        // Kiểm tra xem ô chứa dịch vụ có giá trị không
+        if (!serviceCell || serviceCell.textContent.trim() === '') {
+          // Lấy parent node (thường là tbody hoặc table) của phần tử tr
+          var parent = row.parentNode;
+  
+          // Xóa phần tử tr khỏi DOM
+          parent.removeChild(row);
+        }
+      });
+    });
+  </script>
+
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+      var startTime = new Date(); // Thời điểm bắt đầu tính thời gian đợi
+      var baseWaitTime = 7; // Thời gian đợi cho người đầu tiên (phút)
+      var additionalWaitTime = 6; // Thời gian đợi cho mỗi người sau (phút)
+
+      function updateWaitTime() {
+        var rows = document.querySelectorAll('.body-table__list');
+
+        rows.forEach(function (row, index) {
+          var registrationTimeCell = row.querySelector('.body-table__body-items:nth-child(5)');
+          var noteCell = row.querySelector('.body-table__body-items:nth-child(6)');
+
+          if (registrationTimeCell && registrationTimeCell.textContent.trim() !== '') {
+            var registrationTime = new Date(registrationTimeCell.textContent);
+            var currentTime = new Date();
+
+            // Tính thời gian đợi dựa trên quy tắc cụ thể
+            var waitTime;
+            if (index === 0) {
+              // Người đầu tiên
+              waitTime = baseWaitTime;
+            } else {
+              // Các người sau
+              waitTime = baseWaitTime + index * additionalWaitTime;
+            }
+
+            // Hiển thị thời gian đợi
+            noteCell.textContent = "Thời gian đợi: " + waitTime + " phút";
+          }
+        });
+      }
+
+      setInterval(updateWaitTime, 5000
+      ); // Cập nhật thời gian đợi mỗi 1 phút
+    });
+
+
+    (function ($) {
+      $(document).ready(function () {
+          $(':checkbox[name$="priority"]').change(function () {
+              var patientId = $(this).data('patient-id');
+              var priorityValue = $(this).prop('checked') ? '1' : '0';
+  
+              $.ajax({
+                  url: '{% url "admin:update_priority" %}',
+                  method: 'POST',
+                  data: {
+                      'patient_id': patientId,
+                      'priority_value': priorityValue,
+                      'csrfmiddlewaretoken': '{{ csrf_token }}'
+                  },
+                  success: function (data) {
+                      if (data.status === 'success') {
+                          // Handle success (optional)
+                          console.log('Priority updated successfully.');
+                          // Reload the page to reflect changes
+                          location.reload();
+                      } else {
+                          // Handle error (optional)
+                          console.error('Error updating priority:', data.message);
+                      }
+                  },
+                  error: function () {
+                      // Handle error (optional)
+                      console.error('Error updating priority: Server error');
+                  }
+              });
+          });
+      });
+    })
+  </script>
+
+  <script>
+    function updateURL(service) {
+      var newURL = '/queue/service/' + encodeURIComponent(service) + '/';
+      window.history.pushState({ path: newURL }, '', newURL);
+  
+      // Gọi hàm để cập nhật danh sách bệnh nhân
+      updateQueue(service);
+      location.reload();
+
+    }
+  
+    function updateQueue(service) {
+        // Sử dụng AJAX để gửi yêu cầu đến server và nhận danh sách bệnh nhân mới
+        var xhr = new XMLHttpRequest();
+        var url = '/queue/service/' + encodeURIComponent(service) + '/';
+    
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Thay thế nội dung của container bằng nội dung mới từ server
+                document.getElementById('patientListContainer').innerHTML = xhr.responseText;
+            }
+        };
+    
+        xhr.open('GET', url, true);
+        xhr.send();
+    }
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lắng nghe sự kiện khi click vào các mục dropdown
+        var dropdownItems = document.querySelectorAll('.dropdown-item');
+    
+        dropdownItems.forEach(function (item) {
+            item.addEventListener('click', function (event) {
+                event.preventDefault();
+    
+                var service = item.getAttribute('data-service');
+                updateURL(service);
+            });
+        });
+    });
+    
+  </script>
+
+
+
+
+
+</body>
+
+</html>

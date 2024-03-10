@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %} 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <script src="https://cdn.rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonwebtoken/8.5.1/jsonwebtoken.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/dist/index.umd.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.3.2-dist' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/form2.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'img' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&family=Raleway:wght@600&family=Work+Sans:wght@100;200;300;400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <div class="header">
+    <div class="container-xxl"> 
+      <div class="row">
+        <div class="form-page col-xxl-">
+          <div class="header__logo">
+            <div class="header__logo-text">
+              <div><a href="" style="color: var(--primary-color); font-size: 24px; font-family: 'Raleway'; font-weight: 600; word-wrap: break-word; text-decoration: none;">e-</a>
+                <a href="{%url 'home'%}" style="color: var(--primary-color); font-size: 24px; font-family: 'Raleway'; font-weight: 600; word-wrap: break-word; text-decoration: none;">Care</a></div>
+            </div>
+            <div class="header__logo-icon">
+                <img src="{% static 'img/Rectangle 85.png' %}" alt="" style="width: 40px; height: 40px;" class="header__logo-icon-img">
+
+            </div>
+          </div>
+          <div class="header__navbar caption">
+            <span class="header__navbar-intro select__object">
+              <a  href="{%url 'home'%}" class="header__navbar-intro">GIỚI THIỆU</a>
+            </span>
+            <span href='' class="header__navbar-infor select__object nav-item dropdown">
+              <a href="#" class="header__navbar-infor nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">DANH SÁCH HÀNG CHỜ</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" data-service='Khám sức khỏe tổng quát'>Khám sức khỏe tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Tầm soát ung thư'>Tầm soát ung thư </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Nội tổng quát'>Nội tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Ngoại tổng quát'>Ngoại tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Sản khoa'>Sản khoa</a></li>
+                <li><a class="dropdown-item" href="#" data-service='Nhi khoa'>Nhi khoa </a></li>
+                <li><a class="dropdown-item" href="#" data-service='cơ xương khớp'>Cơ xương khớp </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Tai mũi họng'>Tai mũi họng </a></li>
+              </ul>
+            </span>
+            <span class="header__navbar-contact select__object">
+              <a href="{%url 'form' %}" class="header__navbar-contact">THÔNG TIN BỆNH NHÂN </a>
+            </span>
+            <span class="header__navbar-service select__object">
+              {% comment %} <a href="{%url 'logout'%}" class="header__navbar-service">Đăng xuất</a> {% endcomment %}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body-container">
+    <div class="container-xxl">
+      <div class="row">
+        <div class="app-container col-xxl-">
+          <span class="app-container__img">
+            <img src="{% static 'img/Rectangle 81.png' %}" alt="" class="app-container__img-edit">
+          </span>
+          <div class="app-container__img-shadow">
+
+          </div>
+          <div class="form-user">
+          
+            <h3 class="form-user__header header-2">
+              THÔNG TIN BỆNH NHÂN
+            </h3>
+
+            <form class = "form__body" id="my_form" method = "post">
+            {% csrf_token %}
+            <label class="form__control-label" for="{{ form.ho_ten.id_for_label }}">Họ tên:</label>
+            <input id = "id_ho_ten" class="form__control-input" type="text" value="{{ request.session.temp_storage.ho_ten|default:'' }}" >
+            
+            <label class="form__control-label" for="{{ form.so.id_for_label }}">Số:</label>
+            <input id = "id_so" class="form__control-input" type="text" value="{{ request.session.temp_storage.so|default:'' }}" >
+            
+            <label class="form__control-label" for="{{ form.ngay_sinh.id_for_label }}">Ngày sinh:</label>
+            <input id = "id_ngay_sinh" class="form__control-input" value="{{ request.session.temp_storage.ngay_sinh|default:'' }}" >
+            
+            <label class="form__control-label" for="{{ form.gioi_tinh.id_for_label }}">Giới tính:</label>
+            <input id = "id_gioi_tinh" class="form__control-input" value="{{ request.session.temp_storage.gioi_tinh|default:'' }}">
+            
+            <label class="form__control-label" for="{{ form.quoc_tich.id_for_label }}">Quốc tịch:</label>
+            <input id = "id_quoc_tich" class="form__control-input" type="text" value="{{ request.session.temp_storage.quoc_tich|default:'' }}" >
+            
+            <label class="form__control-label" for="{{ form.noi_sinh.id_for_label }}">Nơi sinh:</label>
+            <input id = "id_noi_sinh" class="form__control-input" type="text" value="{{ request.session.temp_storage.noi_sinh|default:'' }}">
+            
+            <label class="form__control-label" for="{{ form.ngay_cap.id_for_label }}">Ngày cấp:</label>
+            <input id = "id_ngay_cap" class="form__control-input" value="{{ request.session.temp_storage.ngay_cap|default:'' }}">
+            
+
+          </form>
+          <button type="submit" onclick="window.location.href='{% url 'home' %}'" class="btn-form">Đồng ý</button>
+          <button id = "cameraButton" class ="camera">Quét QR VNeiD</button>
+          {{ form.csrf_token }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <script src="https://cdn.rawgit.com/serratus/quaggaJS/0.12.1/dist/quagga.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonwebtoken/8.5.1/jsonwebtoken.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/dist/index.umd.min.js"></script>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script src="https://cdn.rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var dropdownItems = document.querySelectorAll('.dropdown-item');
+      dropdownItems.forEach(function(item) {
+        item.addEventListener('click', function(event) {
+          var service = item.getAttribute('data-service');
+          var url = '{% url "queue_service" service="temp" %}'.replace('temp', encodeURIComponent(service));
+
+          window.location.href = url;
+        });
+      });
+    });
+  </script>
+
+  <!-- Thêm CSS cho jQuery UI Datepicker -->
+  <script>
+    $(function() {
+      $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+  </script>
+  
+  {% comment %} <script>
+    document.addEventListener('DOMContentLoad', function(){
+      fetch('{% url "emptyData" %}')
+        .then(response => response.json())
+        .then(data => {
+          console.log('Form data reset successfully', data)
+        })
+        .catch(error => console.error('Error restting form data', error))
+    })
+    </script> {% endcomment %}
+
+
+  <script src="https://cdn.rawgit.com/cozmo/jsQR/master/dist/jsQR.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const cameraButton = document.getElementById('cameraButton');
+      let webcamWindow;
+    
+      cameraButton.addEventListener('click', async () => {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    
+          webcamWindow = window.open('', '_blank', 'width=640,height=480');
+          webcamWindow.document.body.innerHTML = '<video id="webcam" autoplay playsinline muted></video>';
+    
+          const webcam = webcamWindow.document.getElementById('webcam');
+          webcam.srcObject = stream;
+    
+          // Lật video từ phải sang trái
+          webcam.style.transform = 'scaleX(-1)';
+    
+          // Sử dụng Instascan để nhận diện mã QR
+          const scanner = new Instascan.Scanner({ video: webcam });
+          scanner.addListener('scan', (content) => {
+            // Mã QR đã được nhận diện
+            const decodedContent = decodeURIComponent(escape(content));
+            console.log('QR Code content:', decodedContent);
+  
+            // Lấy token CSRF từ cookie
+            const csrfToken = getCookie('csrftoken');
+    
+            fetch('/decode_qr/', {
+              method: 'POST',
+              headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrfToken,
+              },
+              body: JSON.stringify({ content: decodedContent }),
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Ket qua:', data);
+
+              
+            })
+            .catch(error => console.error('Error decoding QR', error));
+
+            if (webcamWindow) {
+              console.log('Đang đóng cửa sổ webcam...');
+              webcamWindow.close();
+            } else {
+              console.log('webcamWindow không được định nghĩa');
+            }
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 1000);
+          });
+          Instascan.Camera.getCameras().then(cameras => {
+            if (cameras.length > 0) {
+              scanner.start(cameras[0]);
+            } else {
+              console.error('Không tìm thấy camera.');
+            }
+          });
+        } catch (error) {
+          console.error('Lỗi khi truy cập webcam:', error);
+        }
+      });
+
+      // Hàm để lấy giá trị token CSRF từ cookie
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+    
+      async function decodeBase64(encodeContent) {
+        const binaryContent = atob(encodeContent);
+        const arrayBuffer = new ArrayBuffer(binaryContent.length);
+        const uintArray = new Uint8Array(arrayBuffer);
+    
+        for (let i = 0; i < binaryContent.length; i++) {
+          uintArray[i] = binaryContent.charCodeAt(i);
+        }
+    
+        const textContent = new TextDecoder('utf-8').decode(uintArray);
+        return textContent;
+      }
+    });
+    
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.3.2-dist' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main-home_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'img' %}">
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&family=Raleway:wght@600&family=Work+Sans:wght@100;200;300;400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <div class="header">
+    <div class="container-xxl"> 
+      <div class="row">
+        <div class="form-page col-xxl-">
+          <div class="header__logo">
+            <div class="header__logo-text">
+              <div><a href="" style="color: var(--primary-color); font-size: 24px; font-family: 'Raleway'; font-weight: 600; word-wrap: break-word; text-decoration: none;">e-</a>
+                <a href="{%url 'home'%}" style="color: var(--primary-color); font-size: 24px; font-family: 'Raleway'; font-weight: 600; word-wrap: break-word; text-decoration: none;">Care</a></div>
+            </div>
+            <div class="header__logo-icon">
+                <img src="{% static 'img/Rectangle 85.png' %}" alt="" style="width: 40px; height: 40px;" class="header__logo-icon-img">
+
+            </div>
+          </div>
+          <div class="header__navbar caption">
+            <span class="header__navbar-intro select__object">
+              <a  href="{%url 'home'%}" class="header__navbar-intro">GIỚI THIỆU</a>
+            </span>
+            <span href='' class="header__navbar-infor select__object nav-item dropdown">
+              <a href="#" class="header__navbar-infor nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">DANH SÁCH HÀNG CHỜ</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" data-service='Khám sức khỏe tổng quát'>Khám sức khỏe tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Tầm soát ung thư'>Tầm soát ung thư </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Nội tổng quát'>Nội tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Ngoại tổng quát'>Ngoại tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Sản khoa'>Sản khoa</a></li>
+                <li><a class="dropdown-item" href="#" data-service='Nhi khoa'>Nhi khoa </a></li>
+                <li><a class="dropdown-item" href="#" data-service='cơ xương khớp'>cơ xương khớp </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Tai mũi họng'>'Tai mũi họng </a></li>
+              </ul>
+            </span>
+            <span class="header__navbar-contact select__object">
+              <a href="{%url 'patient_info'%}" class="header__navbar-contact">THÔNG TIN BỆNH NHÂN </a>
+            </span>
+            <span class="header__navbar-service select__object">
+              <a href="{%url 'logout'%}" class="header__navbar-service">Đăng xuất</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <!-- Nội dung chính sẽ được thay thế bởi các trang khác -->
+    {% block content %}{% endblock %}
+  </div>
+
+
+
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+ 
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <!-- Trong HTML -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var dropdownItems = document.querySelectorAll('.dropdown-item');
+      dropdownItems.forEach(function(item) {
+        item.addEventListener('click', function(event) {
+          var service = item.getAttribute('data-service');
+          var url = '{% url "queue_service" service="temp" %}'.replace('temp', encodeURIComponent(service));
+
+          window.location.href = url;
+        });
+      });
+    });
+  </script>
+</body>
+</html> 
+            

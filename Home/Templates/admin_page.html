@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    {% load static %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.3.2-dist' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main-admin.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'img' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&family=Raleway:wght@600&family=Work+Sans:wght@100;200;300;400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+    <title>Document</title>
+  </head>
+<body>
+  <div class="header">
+    <div class="container-xxl"> 
+      <div class="row">
+        <div class="form-page col-xxl-">
+          <div class="header__logo">
+            <div class="header__logo-text">
+              <div><a href="" style="color: var(--primary-color); font-size: 24px; font-family: 'Raleway'; font-weight: 600; word-wrap: break-word; text-decoration: none;">e-</a>
+                <a href="" style="color: var(--primary-color); font-size: 24px; font-family: 'Raleway'; font-weight: 600; word-wrap: break-word; text-decoration: none;">Care</a></div>
+            </div>
+            <div class="header__logo-icon">
+              <img src="{% static 'img/Reactangle 85.png' %}}" alt="" style="width: 40px; height: 40px;" class="header__logo-icon-img">
+            </div>
+          </div>
+          <div class="header__navbar caption">
+            <span class="header__navbar-intro select__object">
+              <a href="" class="header__navbar-intro">GIỚI THIỆU</a>
+            </span>
+            <span id="serviceDropdown" href='' class="header__navbar-infor select__object nav-item dropdown">
+              <a href="#" class="header__navbar-infor nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">DANH SÁCH HÀNG CHỜ</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" data-service='Khám sức khỏe tổng quát'>Khám sức khỏe tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Tầm soát ung thư'>Tầm soát ung thư </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Nội tổng quát'>Nội tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Ngoại tổng quát'>Ngoại tổng quát </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Khoa sản'>Khoa sản</a></li>
+                <li><a class="dropdown-item" href="#" data-service='Nhi khoa'>Nhi khoa </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Cơ xương khớp'>Cơ xương khớp </a></li>
+                <li><a class="dropdown-item" href="#" data-service='Tai mũi họng'>Tai mũi họng </a></li>
+              </ul>
+            </span>
+            <span class="header__navbar-infor select__object">
+              <a href="" class="header__navbar-infor">THÔNG TIN THAM KHẢO</a>
+            </span>
+            <span class="header__navbar-contact select__object">
+              <a href="" class="header__navbar-contact">LIÊN HỆ</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="queue-body">
+    <div class="container">
+      <div class="queue-center">
+        <div class="body-header">
+          <span class="body__header-text">
+            Danh sách bệnh nhân 
+          </span>
+        </div>
+        <table class="body-table">
+            <thead class="body-table__head">
+              <tr>
+                <th class="body-table__stt body-table__items  col-1">STT</th>
+                <th class="body-table__name body-table__items col-2">Họ và tên</th>
+                <th class="body-table__service body-table__items col-2">Giới tính</th>
+                <th class="body-table__doctor body-table__items col-2">Năm sinh</th>
+                <th class="body-table__wait-time body-table__items col-2">Xác nhận</th>
+                <th class="body-table__wait-time body-table__items col-2">Chính sách ưu tiên</th>
+              </tr>
+            </thead>
+              <tbody id="patientTablebody" class="body-table__body" action="" method="POST">
+                {% for queue in queue %}
+                    <tr class="body-table__list" data-service="{{ queue.service }}">
+                            <th scope="row" class="body-table__body-items" style="margin: auto;">{{ queue.queue_number }}</th>
+                            <td class="body-table__body-items">{{ queue.patient }}</td>
+                            <td class="body-table__body-items">{{ queue.gender }}</td>
+                            <td class="body-table__body-items">{{ queue.birth_year }}</td>
+                            <td class="body-table__body-items">
+                              {% if not queue.is_examined %}
+                                  <a href="{% url 'update_confirmation' queue_id=queue.id %}" id="xac_nhan_button" class="button">Xác nhận</a>
+                              {% else %}
+                                  Đã Khám
+                              {% endif %}
+                          </td>
+                          <td class="body-table__body-items">
+                              {% if not queue.priority %}
+                                  <a href="{% url 'update_priority' queue_id=queue.id %}" id="xac_nhan_button" class="button">Ưu tiên</a>
+                              {% else %}
+                                  Ưu tiên
+                              {% endif %}
+                          </td>
+                    </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script> 
+    document.addEventListener("DOMContentLoaded", function () {
+      var rows = document.querySelectorAll('#patientTablebody .body-table__list')
+
+       rows.forEach(function (row) {
+        var cells = row.querySelectorAll('.body-table__body-items');
+
+          // Kiểm tra xem có ít nhất một ô có giá trị không
+          var hasValue = Array.from(cells).some(function (cell) {
+            return cell.textContent.trim() !== '';
+          });
+
+          // Nếu không có giá trị, ẩn đi hàng đó
+          if (!hasValue) {
+            row.style.display = 'none';
+      }
+       })
+    })
+
+
+  </script>
+
+  <script>
+    document.getElementById('xac_nhan_button').addEventListener('click', function (event) {
+      event.preventDefault();
+  
+      // Thực hiện fetch chỉ một lần
+      fetch('/xac_nhan/' + queue_id + '/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Xử lý dữ liệu phản hồi nếu cần thiết
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+      return false;
+    });
+  </script>
+
+
+<script>
+    $(document).ready(function () {
+        // Ẩn tất cả các hàng bảng khi trang được tải
+        $('.body-table__list').hide();
+
+        // Sự kiện khi chọn dịch vụ từ dropdown
+        $('.header__navbar-infor .dropdown-item').click(function () {
+            // Lấy giá trị dịch vụ từ data-service
+            var selectedService = $(this).data('service');
+
+            // Ẩn tất cả các hàng bảng
+            $('.body-table__list').hide();
+
+            // Hiển thị chỉ các hàng tương ứng với dịch vụ được chọn
+            $('.body-table__list[data-service="' + selectedService + '"]').show();
+        });
+    });
+</script>
+
+</body>
+</html>
