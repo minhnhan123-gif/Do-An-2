@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import django_heroku
+import dj_database_url
 # settings.py
 
 
@@ -28,7 +29,7 @@ SECRET_KEY = 'django-insecure-lj6fh=275bhv!c(tfq6mg0i$4j8#m%52$m79vx+wtl_7ir7x#%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.15.181','127.0.0.1','192.168.1.4','192.168.1.63','192.168.1.5','192.168.1.2', '192.168.206.153' ]
+ALLOWED_HOSTS = ['192.168.15.181','127.0.0.1','192.168.1.4','192.168.1.63','192.168.1.5','192.168.1.2', '192.168.206.153', 'DoAn.com','*' ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -132,6 +133,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+django_heroku.settings(locals())
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
