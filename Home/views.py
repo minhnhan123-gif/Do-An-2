@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from .forms import RegistrationForm, ThongTinBenhNhanForm, LoginForm
 from django.db import models
 from django.db.models import Max, F, Case, When, Value, ExpressionWrapper, fields, IntegerField
-import cv2 
 from pyzbar.pyzbar import decode
 from PIL import Image
 import pytesseract
@@ -21,7 +20,6 @@ from rest_framework.authtoken.models import Token
 from .serializers import UserRegisterSerializer
 from itertools import chain
 from django.views.decorators.csrf import csrf_exempt
-import cv2
 from django.core.files.base import ContentFile
 import base64
 import numpy as np
