@@ -1,0 +1,203 @@
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+:root {
+  --primary-color: #005792;
+  --primary-color-2: #53CDe2;
+  --primary-color-3: #d1f4f4;
+  --primary-color-4: #EDf9fc;
+  --white-color: #fff;
+  --height-header: 75px;
+}
+
+.btn {
+  width: 140px;
+  height: 50px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+} 
+
+.btn.btn-login {
+  border-radius: 4px;
+  box-shadow: 0 0 20px var(--primary-color-2);
+}
+.btn:hover {
+  background-color: #005792;
+}
+.btn.btn-admin {
+  height: 30px;
+  border-radius: 20px;
+  background-color: aquamarine;
+}
+.btn.btn-accept {
+  height: 40px;
+  background-color: var(--primary-color);
+  box-shadow: 0 0 5px 1px var(--primary-color);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.btn.btn-cancel {
+  height: 40px;
+  background-color: var(--primary-color-2);
+  box-shadow: 0 0 5px 1px var(--primary-color-2);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+
+.btn.btn-2 {
+  background-color: var(--primary-color-2);
+}
+
+.login-page {
+  display: flex;
+  position: relative;
+  max-width: 1440px;
+  height: 746px;
+  flex-direction: column;
+}
+
+.btn.btn--size-s {
+  background-color: #F7AA00;
+  display: block;
+  position: absolute;
+  width: 281px;
+  height: 42px;
+  border-radius: 3px;
+  top: 175px;
+  left: 20px;
+  color: #FFF;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.select__object:hover {
+  background-color: white;
+  color: #005792;
+}
+
+/* Font-Family */
+.header-1 {
+  color: #005792;
+  font-family: 'Yeseva One', sans-serif;
+  font-size: 4.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.header-2 {
+  font-family: 'Yeseva One', sans-serif;
+  font-size: 3.2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.title-1 {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 2.6rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.caption {
+  font-family:'Work Sans', sans-serif;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
+}
+ 
+.body-sub {
+  font-family: 'Work Sans', sans-serif;;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.4px; /* 22.4px */
+}
+
+.body-sub-2 {
+  font-size: 1.8rem;
+  font-family: 'Work Sans', sans-serif;;
+  font-weight: 400;
+  line-height: 25.20px;
+  word-wrap: break-word
+}
+
+.button-text {
+  font-size: 1.4rem;
+  font-family: 'Work Sans', sans-serif;;
+  font-weight: 500;
+  word-wrap: break-word
+}
+
+.small-1 {
+  font-size: 1.2rem;
+  font-family: 'Work Sans', sans-serif;;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+
+#serviceModal{
+  display: none;
+  position: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#serviceModal.show{
+  display: block;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* Animation */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes growth {
+  from {
+    transform: scale(var(--growth-from));
+  }
+  to {
+    transform: scale(var(--growth-to));
+  }
+}
