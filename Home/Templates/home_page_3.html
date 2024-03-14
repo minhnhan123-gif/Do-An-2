@@ -368,7 +368,7 @@
     </div>
   </div>
   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style = "transform">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role = "document">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Thông Tin</h1>
@@ -469,7 +469,7 @@
                         '<p class="title-1">Giới tính: ' + sex + '</p>' +
                         '<div id="countdownTimer" class="title-1">Chuyển đến trang thông tin bệnh nhân trong 30 giây</div>';
 
-                        var countdownSeconds = 5;
+                        var countdownSeconds = 30;
                         var countdownElement = document.getElementById('countdownTimer');
 
                         var countdownInterval = setInterval(function () {
@@ -494,7 +494,7 @@
                 .catch(error => console.error('Error:', error));
         }
     
-        function saveToDatabase(queueNumber) {
+        {% comment %} function saveToDatabase(queueNumber) {
             var serviceCounters = {}; 
             fetch('/get_doctor_and_queue_number/?service_name=' + serviceName)
                 .then(response => response.json())
@@ -525,7 +525,7 @@
                         })
                 })
                 .catch(error => console.error('Error from /get_doctor_and_queue_number/:', error));
-        }
+        } {% endcomment %}
         function redirectToForm() {
           var formUrl = "{% url 'form' %}";
 
